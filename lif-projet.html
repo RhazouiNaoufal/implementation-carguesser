@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<title>prediction</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+</style>
+
+<body class="w3-light-grey">
+
+<!-- Navigation Bar -->
+<div class="w3-bar w3-white w3-large">
+  <a href="#"class="w3-bar-item w3-button w3-red w3-mobile"><i class="w3-margin-right">Data Miners</i></a>
+  <a href="#rooms" class="w3-bar-item w3-button w3-mobile">Cars</a>
+  <a href="#about" class="w3-bar-item w3-button w3-mobile">About</a>
+  <a href="#contact" class="w3-bar-item w3-button w3-mobile">Contact</a>
+
+</div>
+<!-- Header -->
+
+<header class="w3-display-container w3-content" style="max-width:1500px;">
+  <img src="{{url_for('static', filename='cars.jpg')}}" style="min-width:1000px" width="1500" height="800"  />
+  <div class="w3-display-left w3-padding w3-col l6 m8">
+    <div class="w3-container w3-red">
+      <h2><i class=" w3-margin-right"></i>Car</h2>
+    </div>
+    <div class="w3-container w3-white w3-padding-16">
+   
+        <div class="w3-row-padding" style="margin:0 -16px;">
+          <div class="w3-half  -margin-bottom">
+            <label><i class=""></i>Nom </label>
+            <input class="w3-input w3-border" type="text"  name="CarName" required>
+          </div>
+          <div class="w3-half">
+            <label><i class=""></i> Model</label>
+            <input class="w3-input w3-border" type="text" name="Model" required>
+          </div>
+        </div>
+        <div class="w3-row-padding" style="margin:8px -16px;">
+          <div class="w3-half w3-margin-bottom">
+           <!--chi l3ba-->
+          </div>
+          <div class="w3-half">
+            <!--chi l3ba-->
+          </div>
+        </div>
+        <button class="w3-button w3-dark-grey" type="submit"><i class="fa fa-search w3-margin-right"></i> Search availability</button>
+     
+    </div>
+  </div>
+ 
+</header>
+
+<!-- Page content -->
+
+<div class="w3-content" style="max-width:1532px;">
+
+  <div class="w3-container w3-margin-top" id="rooms">
+    <h3>Car</h3>
+    <p>Chercher la voiture de vous reve</p>
+  </div>
+
+  <form method="POST" action="{{url_for('index')}}" accept-charset="utf-8" name="Modelform" >
+  <div class="w3-row-padding">
+
+    <div class="w3-col m2">
+
+      <label><i class="fa"></i> Marque</label>
+     <select class="selectpicker form-control" id="marque" name="marque" required="1">
+      <option value="">--Please choose an option--</option>
+       <option value="ford">ford</option>
+       <option value="audi">audi</option>
+       <option value="chevrolet">chevrolet</option>
+       <option value="volkswagen">volkswagen</option>
+       <option value="volvo">volvo</option>
+       <option value="toyota">toyota</option>
+       <option value="tesla">tesla</option>
+       <option value="rover">rover</option>
+       <option value="nissan">nissan</option>
+       <option value="honda">honda</option>
+       <option value="mercedes-benz">mercedes-benz</option>
+       <option value="jeep">jeep</option>
+       <option value="gmc">gmc</option>
+       <option value="bmw">bmw</option>  
+
+     </select>
+    </div>
+    <div class="w3-col m1">
+      <label><i class="fa "></i> Model</label>
+      <input class="w3-input w3-border" type="text" placeholder="Model" id="model" name="model" required>
+    </div>
+    <div class="w3-col m2">
+      <label><i class=""></i> Odometres</label>
+      <input class="w3-input w3-border" type="number" id="odometres" >
+    </div>
+    <div class="w3-col m2">
+      <label><i class="" required ></i> Fuel Type</label>
+      <select  id="fuel" name="fuel">
+        <option value="">--Please choose an option--</option>
+        <option value="1">Diesel</option>
+        <option value="2">electric</option>
+        <option value="3">Gas</option>
+        <option value="4">Hybride</option>
+        <option value="5">other</option>
+        </select>
+    </div>
+    <div class="w3-col m2">
+      <label><i class=""></i>Transsmission</label>
+      <select  id="transsmission" name="transmission">
+        <option value="" >--Please choose an option--</option>
+        <option value="1">Automatic</option>
+        <option value="2">Manual</option>
+        <option value="3">other</option>
+        </select>
+    </div>
+    
+
+    <div class="w3-col m1">
+      <label><i class=""></i> Year</label>
+      <input class="w3-input w3-border" type="number" placeholder="0" id="year" name="year">
+    </div>
+
+    <div class="w3-col m1">
+      <label><i class="fa fa-search"></i> Predict price</label>
+      <button class="w3-button w3-block w3-black" id="send"  type="submit" onclick="send_data()">Prediction</button>
+    </div>
+  </form>
+  
+</div>
+
+</div>
+<br>
+  <div class="col-12" style="text-align: center">
+    <h4><span id="prediction"></span></h4>
+
+    <br><br>
+    {% if rec %}
+       <h2>Prix</h2>
+    {% endif %}
+
+
+
+
+
+
+
+  <div class="w3-row-padding w3-padding-16">
+    <div class="w3-third w3-margin-bottom">
+      <img src="{{url_for('static', filename='Lexus.jpg')}}" alt="Lexus" style="width:100%; height: 250px;">
+      <div class="w3-container w3-white">
+        <h3>Lexus lx570</h3>
+        <h6 class="w3-opacity">10950 $</h6>
+        
+        
+        <button class="w3-button w3-block w3-black w3-margin-bottom">Buy</button>
+      </div>
+    </div>
+    <div class="w3-third w3-margin-bottom">
+      <img src="{{url_for('static', filename='Gmc.webp')}}" alt="Gmc" style="width:100% ; height: 250px;">
+      <div class="w3-container w3-white">
+        <h3>Gmc </h3>
+        <h6 class="w3-opacity">33950 $</h6>
+        <button class="w3-button w3-block w3-black w3-margin-bottom">Buy</button>
+      </div>
+    </div>
+    <div class="w3-third w3-margin-bottom">
+      <img src="{{url_for('static', filename='Porche.jpg')}}" alt="Norway" style="width:100%; height: 250px;">
+      <div class="w3-container w3-white">
+        <h3>Boxster </h3>
+        <h6 class="w3-opacity">11500$</h6>
+
+        <button class="w3-button w3-block w3-black w3-margin-bottom">Buy</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-row-padding" id="about">
+    <div class="w3-col l4 12">
+
+    <p>We accept: <i class="fa fa-credit-card w3-large"></i> <i class="fa fa-cc-mastercard w3-large"></i> <i class="fa fa-cc-amex w3-large"></i> <i class="fa fa-cc-cc-visa w3-large"></i><i class="fa fa-cc-paypal w3-large"></i></p>
+    </div>
+    <div class="w3-col l8 12">
+      <!-- Image of location/map -->
+      <img src="{{url_for('static', filename='Logo.png')}}"  style="width:70%; height: 300px;">
+    </div>
+  </div>
+  
+  <div class="w3-row-padding w3-large w3-center" style="margin:32px 0">
+    <div class="w3-third"><i class="fa fa-map-marker w3-text-red"></i> LYON, FR</div>
+    <div class="w3-third"><i class="fa fa-phone w3-text-red"></i> Phone: +33620336695</div>
+    <div class="w3-third"><i class="fa fa-envelope w3-text-red"></i> Email: data_miners@mail.com</div>
+  </div>
+
+  <div class="w3-panel w3-red w3-leftbar w3-padding-32">
+    <h6><i class="fa fa-info w3-deep-orange w3-padding w3-margin-right"></i> On demand, we can offer Delivery , etc.</h6>
+  </div>
+
+  
+
+  <div class="w3-container w3-padding-32 w3-black w3-opacity w3-card w3-hover-opacity-off" style="margin:32px 0;">
+    <h2>Get the best offers first!</h2>
+    <p>Join our newsletter.</p>
+    <label>E-mail</label>
+    <input class="w3-input w3-border" type="text" placeholder="Your Email address">
+    <button type="button" class="w3-button w3-red w3-margin-top">Subscribe</button>
+  </div>
+
+  <div class="w3-container" id="contact">
+    <h2>Contact</h2>
+    <p>If you have any questions, do not hesitate to ask them.</p>
+    <i class="fa fa-map-marker w3-text-red" style="width:30px"></i> Lyon, FR<br>
+    <i class="fa fa-phone w3-text-red" style="width:30px"></i> Phone: +33620336695<br>
+    <i class="fa fa-envelope w3-text-red" style="width:30px"> </i> Email: data_miners@mail.com<br>
+    <form action="/action_page.php" target="_blank">
+      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name"></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Message" required name="Message"></p>
+      <p><button class="w3-button w3-black w3-padding-large" type="submit">SEND MESSAGE</button></p>
+    </form>
+  </div>
+
+<!-- End page content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-padding-32 w3-black w3-center w3-margin-top">
+  <h5>Find Us On</h5>
+  <div class="w3-xlarge w3-padding-16">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
+  <p>Powered by <a href="#" target="_blank" class="w3-hover-text-green">Data Miners</a></p>
+</footer>
+
+
+
+
+
+<script type="text/javascript">
+
+document.querySelector('form').addEventListener("submit",form_handler);
+
+
+function form_handler(event) {
+        event.preventDefault(); // Don't submit the form normally
+    }
+
+
+
+    function send_data() {
+      var e = document.getElementById("marque");
+      var marque = e.value;
+
+      var e = document.getElementById("model");
+      var model = e.value;
+
+      var e = document.getElementById("year");
+      var year = e.value;
+
+      var e = document.getElementById("odometres");
+      var odometres = e.value;
+
+      var e = document.getElementById("transsmission");
+      var Transsmission = e.value; 
+      var e = document.getElementById("fuel");
+      var fuel = e.value;
+
+    var Lamaruqe = marque;
+    var lemodel = model;
+    var latranssmission = Transsmission;
+    var leodometres = odometres;
+    var leyear = year;
+    var lefuel =fuel;
+    var server_data = [
+  {"year": leyear},
+  {"Transmission": latranssmission},
+  {"fuel": lefuel},
+  {"odometres": leodometres},
+  {"model": lemodel},
+  {"marque": Lamaruqe}
+];
+
+//récupérer les données et appel à traiter
+$.ajax({
+  type: "POST",
+  url: "/traite",
+  data: JSON.stringify(server_data),
+  contentType: "application/json",
+  dataType: 'json' 
+});
+    
+}
+
+
+
+    function Upload() {
+        var fileUpload = document.getElementById("fileUpload");
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+        if (regex.test(fileUpload.value.toLowerCase())) {
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var table = document.createElement("table");
+                    var rows = e.target.result.split("\n");
+                    for (var i = 0; i < rows.length; i++) {
+                        var cells = rows[i].split(",");
+                        if (cells.length > 1) {
+                            var row = table.insertRow(-1);
+                            for (var j = 0; j < cells.length; j++) {
+                                var cell = row.insertCell(-1);
+                                cell.innerHTML = cells[j];
+                            }
+                        }
+                    }
+                    var dvCSV = document.getElementById("dvCSV");
+                    dvCSV.innerHTML = "";
+                    dvCSV.appendChild(table);
+                }
+                reader.readAsText(fileUpload.files[0]);
+            } else {
+                alert("This browser does not support HTML5.");
+            }
+        } else {
+            alert("Please upload a valid CSV file.");
+        }
+    }
+</script>
+
+</body>
+</html>
